@@ -3,7 +3,10 @@
 
 (enable-console-print!)
 
-(defonce app-state (atom [0 0]))
+(def default-state {:dir nil
+                    :pos [0 0]})
+
+(defonce app-state (atom default-state))
 
 (def SIZE 20)
 (def U-SIZE 30)
@@ -17,9 +20,11 @@
   [:svg {:style {:border "1px solid"}
          :width (* SIZE U-SIZE)
          :height (* SIZE U-SIZE)}
-   [square @app-state]])
+   [square (:pos @app-state)]])
 
-(reagent/render-component [universe]
+(reagent/render-component [:div {:onKeyDown #(println (.-key %))
+                                 :contentEditable true}
+                           [universe]]
                           (. js/document (getElementById "app")))
 
 (defn on-tick []
@@ -34,11 +39,31 @@
   (js/clearInterval game-tick))
 
 (defn restart-game! [on-tick]
+  (stop-game!)
   (set! game-tick (start-game! on-tick)))
 
+(def right [1 0])
+(def left [-1 0])
+
+(def move {:right (partial map + [1 0])
+           :left (partial map + [-1 0])
+           :down (partial map + [0 1])
+           :up (partial map + [0 -1])})
+
+(def key-dir-map {"ArrowUp" :up
+                  "ArrowDown" :down
+                  "ArrowLeft" :left
+                  "ArrowRight" :right})
+(defn up-game []
+  (let [{:keys [pos dir]} @app/app-state]
+    (when dir
+      (swap! app/app-state update
+             :pos (app/move dir)))))
 
 (defn on-js-reload []
   ;; optionally touch your app-state to force rerendering depending on
   ;; your application
   ;; (swap! app-state update-in [:__figwheel_counter] inc)
+
+  (println "reloaded")
 )
