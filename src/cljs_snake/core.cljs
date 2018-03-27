@@ -3,20 +3,39 @@
 
 (enable-console-print!)
 
-(println "This text is printed from src/cljs_snake/core.cljs. Go ahead and edit it and see reloading in action.")
+(defonce app-state (atom [0 0]))
 
-;; define your app data so that it doesn't get over-written on reload
+(def SIZE 20)
+(def U-SIZE 30)
 
-(defonce app-state (atom {:text "Hello world!"}))
+(defn square [[x y]]
+  [:rect {:width SIZE :height SIZE :stroke "red" :fill "none"
+          :x (* SIZE x)
+          :y (* SIZE y)}])
 
+(defn universe []
+  [:svg {:style {:border "1px solid"}
+         :width (* SIZE U-SIZE)
+         :height (* SIZE U-SIZE)}
+   [square @app-state]])
 
-(defn hello-world []
-  [:div
-   [:h1 (:text @app-state)]
-   [:h3 "Edit this and watch it change!"]])
-
-(reagent/render-component [hello-world]
+(reagent/render-component [universe]
                           (. js/document (getElementById "app")))
+
+(defn on-tick []
+  (println "yolo"))
+
+(defn start-game! [on-tick]
+  (js/setInterval on-tick 1000))
+
+(defonce game-tick (start-game! on-tick))
+
+(defn stop-game! []
+  (js/clearInterval game-tick))
+
+(defn restart-game! [on-tick]
+  (set! game-tick (start-game! on-tick)))
+
 
 (defn on-js-reload []
   ;; optionally touch your app-state to force rerendering depending on
