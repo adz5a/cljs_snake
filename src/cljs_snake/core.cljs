@@ -6,7 +6,7 @@
 (def default-state {:dir nil
                     :pos [0 0]})
 
-(defonce app-state (atom default-state))
+(defonce state (atom default-state))
 
 (def SIZE 20)
 (def U-SIZE 30)
@@ -20,7 +20,7 @@
   [:svg {:style {:border "1px solid"}
          :width (* SIZE U-SIZE)
          :height (* SIZE U-SIZE)}
-   [square (:pos @app-state)]])
+   [square (:pos @state)]])
 
 (reagent/render-component [:div {:onKeyDown #(println (.-key %))
                                  :contentEditable true}
@@ -42,8 +42,6 @@
   (stop-game!)
   (set! game-tick (start-game! on-tick)))
 
-(def right [1 0])
-(def left [-1 0])
 
 (def move {:right (partial map + [1 0])
            :left (partial map + [-1 0])
@@ -55,15 +53,15 @@
                   "ArrowLeft" :left
                   "ArrowRight" :right})
 (defn up-game []
-  (let [{:keys [pos dir]} @app/app-state]
+  (let [{:keys [pos dir]} @state]
     (when dir
-      (swap! app/app-state update
-             :pos (app/move dir)))))
+      (swap! state update
+             :pos (move dir)))))
 
 (defn on-js-reload []
-  ;; optionally touch your app-state to force rerendering depending on
+  ;; optionally touch your app' state to force rerendering depending on
   ;; your application
-  ;; (swap! app-state update-in [:__figwheel_counter] inc)
+  ;; (swap! state update-in [:__figwheel_counter] inc)
 
-  (println "reloaded")
+  (println "yolo reloaded")
 )
