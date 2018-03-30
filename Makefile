@@ -6,3 +6,6 @@ workspace:
 	tmux split-window &&\
 	tmux select-layout main-vertical &&\
 	tmux attach-session -t $(SESSION)
+
+lein:
+	lein figwheel
