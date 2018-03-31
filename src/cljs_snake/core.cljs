@@ -24,7 +24,9 @@
                   "ArrowLeft" :left
                   "ArrowRight" :right})
 
-(defn waiting? [state]
+(defn waiting?
+ "Returns value true if in waiting state"
+ [state]
   (let [{:keys [running dir]} state]
     (and (nil? dir)
          (false? running))))
@@ -51,7 +53,7 @@
 (defn over? [state]
   (let [{:keys [over]} state]
     (true? over)))
-  
+
 ;; will not "redef" on reload
 ;; needs to be done from the repl
 (defonce state (atom default-state))
@@ -72,7 +74,7 @@
    [square (:pos @state)]])
 
 (defn message-box [yolo]
-  [:section (cond 
+  [:section (cond
         (waiting? @state) [:div
                            [:input {:onClick #(swap! state run-game!)
                                     :type "button"
@@ -87,7 +89,6 @@
   ;; handles keyboard input to update the game
   (let [k (.-key event)
         space? (= " " k)]
-    (println k)
     (cond
       (and (running? @state)
            (contains? key-dir-map k)) (do
