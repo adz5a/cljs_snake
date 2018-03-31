@@ -37,10 +37,13 @@
 (defn slide
   "this component is a slide, it takes destructered
   keyword arguments"
-  [& {:keys [title]
-      :or {title "no title"}}]
-  [:article {:className "pa3 pa5-ns vh-100 white"}
-   [:h1 {:className "f3 f1-m f-headline-l"} title]])
+  [{:keys [title]
+      :or {title "no title"}}
+   & content]
+  (apply vector 
+    :article {:className "pa3 pa5-ns vh-100 white"}
+    [:h1 {:className "f-headline-l"} title]
+    content))
 
 (defn pagination []
   (let [{:keys [current-slide slide-count]} @app-state]
@@ -75,7 +78,10 @@
    [pagination]])
 
 (reagent/render-component [viewer
-                           [slide :title "First Slide"]
+                           [slide {:title "5 @ 7 Clojure"}
+                                  [:ul {:className "f1"}
+                                   [:li "Clojure, Lisp, wat ?"]
+                                   [:li "Syntaxe, concepts"]]]
                            (vector slide :title "Second slide")]
                           (. js/document (getElementById "app")))
 
