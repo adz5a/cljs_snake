@@ -1,12 +1,14 @@
 (ns cljs_snake.core
   (:require [reagent.core :as reagent :refer [atom]]
-            [cljs.spec.alpha :as s]))
+            [cljs.spec.alpha :as s]
+            [cljs_snake.slides :refer [viewer
+                                       slides]]))
 
 (enable-console-print!)
 
 (s/def ::mode #{"pending" "active"})
-(s/def ::current-slide integer?)
-(s/def ::slide-count integer?)
+(s/def ::current-slide (s/and integer? (partial < 0)))
+(s/def ::slide-count (s/and integer? (partial <= 0)))
 (s/def ::state (s/and (s/keys :req-un [::mode ::current-slide ::slide-count])
                       (fn [{:keys [current-slide slide-count]}]
                         (<= current-slide slide-count))))
@@ -19,8 +21,8 @@
       false)))
 
 (def default-state {:mode "pending"
-                    :current-slide 0
-                    :slide-count 0})
+                    :current-slide 1
+                    :slide-count (count slides)})
 
 
 (assert (validate-state default-state))
@@ -34,16 +36,6 @@
 (defn previous-slide! []
   (swap! app-state update :current-slide dec))
 
-(defn slide
-  "this component is a slide, it takes destructered
-  keyword arguments"
-  [{:keys [title]
-      :or {title "no title"}}
-   & content]
-  (apply vector 
-    :article {:className "pa3 pa5-ns vh-100 white"}
-    [:h1 {:className "f-headline-l"} title]
-    content))
 
 (defn pagination []
   (let [{:keys [current-slide slide-count]} @app-state]
@@ -54,35 +46,19 @@
   []
   [:span {:className "fixed top-0 right-0"} (:mode @app-state)])
 
-(defn translation [] (str "translateY(" (-> (:current-slide @app-state)
-                                           (dec)
-                                           (* -100)) "vh)"))
 
-(defn viewer 
-  "this component is used a container for the presented slides"
-  [& slides]
-  [:div {:className "bg-black white vh-100 overflow-hidden"}
-   (vector :section {:className "overflow-hidden"
-                     :style {:transform (translation)
-                             :transition "transform 0.8s"}
-                     :tabIndex "0"
-                     :onFocus #(swap! app-state assoc :mode "active")
-                     :onBlur #(swap! app-state assoc :mode "pending")
-                     :onKeyDown #(let [k (.-key %)]
-                                   (cond
-                                     (= "ArrowDown" k) (next-slide!)
-                                     (= "ArrowUp" k) (previous-slide!)))}
-           (first slides)
-           (second slides))
-   [mode-indicator]
-   [pagination]])
-
-(reagent/render-component [viewer
-                           [slide {:title "5 @ 7 Clojure"}
-                                  [:ul {:className "f1"}
-                                   [:li "Clojure, Lisp, wat ?"]
-                                   [:li "Syntaxe, concepts"]]]
-                           (vector slide :title "Second slide")]
+(reagent/render-component [:div {:className "bg-black white vh-100 overflow-hidden"
+                                 :tabIndex "0"
+                                 :onFocus #(swap! app-state assoc :mode "active")
+                                 :onBlur #(swap! app-state assoc :mode "pending")
+                                 :onKeyDown #(let [k (.-key %)]
+                                               (cond
+                                                 (= "ArrowDown" k) (next-slide!)
+                                                 (= "ArrowUp" k) (previous-slide!)))}
+                           (apply vector viewer app-state
+                                   slides)
+                           [mode-indicator]
+                              [pagination]]
                           (. js/document (getElementById "app")))
 
 (defn restart! []
