@@ -29,7 +29,13 @@
                [:ul {:className "f1"}
                 [:li "Clojure, Lisp, wat ?"]
                 [:li "Syntaxe"]
+                [:li "Macros"]
                 [:li "Statements vs Expressions"]
+                [:li "JS interop"]
+                [:li "DevTools"]
+                [:li "Async"]
+                [:li "React / Reagent"]
+                [:li "Basic game"]
                 [:li "Références"]]])
 
 (def presentation [slide {:title "Clojure, Lisp, wat ?"}])
