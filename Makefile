@@ -7,5 +7,5 @@ workspace:
 	tmux select-layout main-vertical &&\
 	tmux attach-session -t $(SESSION)
 
-lein:
+app-interactive:
 	lein figwheel
