@@ -1,4 +1,7 @@
-(ns cljs_snake.slides)
+(ns cljs_snake.slides
+  (:require [codemirror.api :as cm]
+            [cljs_snake.codemirror :refer [code-mirror]]
+            [reagent.core :as r]))
 
 (defn translation [app-state] 
   (str "translateY(" (-> (:current-slide @app-state)
@@ -45,6 +48,10 @@
                   [:li 
                    [:a {:href  "http://swannodette.github.io/2015/07/29/clojurescript-17"} "ClojureScript Next (D.Nolen)"]]]])
 
+
+(def syntax-try-it-out [slide {:title "Try it out"}
+                        [code-mirror (str '(println "hello world, type in the this box"))]])
 (def slides [summary
+             syntax-try-it-out
              presentation
              references])
