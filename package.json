@@ -1,0 +1,24 @@
+{
+  "name": "cljs_snake",
+  "version": "1.0.0",
+  "description": "FIXME: Write a one-line description of your library/project.",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/adz5a/cljs_snake.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/adz5a/cljs_snake/issues"
+  },
+  "homepage": "https://github.com/adz5a/cljs_snake#readme",
+  "dependencies": {
+    "codemirror": "^5.36.0",
+    "webpack": "^4.4.1"
+  }
+}

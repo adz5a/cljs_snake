@@ -7,5 +7,12 @@ workspace:
 	tmux select-layout main-vertical &&\
 	tmux attach-session -t $(SESSION)
 
-repl:
+copy-assets:
+	cp node_modules/codemirror/lib/codemirror.css resources/public/css/
+	cp -r node_modules/codemirror/theme/ resources/public/css/
+
+repl: src/js/lib.js
 	lein figwheel
+
+src/js/lib.js:
+	node webpack.build.js
