@@ -71,9 +71,4 @@
   ;; your application
   ;; (swap! state update-in [:__figwheel_counter] inc)
 
-  (println "reloaded")
-
-  ;; refresh slide counts
-  (swap! app-state assoc :slide-count (count slides))
-
-  )
+  (println "reloaded"))

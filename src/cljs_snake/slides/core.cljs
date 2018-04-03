@@ -23,8 +23,9 @@
   "this component is used a container for the presented slides"
   [app-state & slides]
   ;; does a side effect on mounting
-  (swap! app-state assoc :slide-count (inc (count slides)))
-  (println "render here")
+  (let [slide-count (inc (count slides))]
+    (when-not (= (:slide-count @app-state) slide-count)
+      (swap! app-state assoc :slide-count slide-count)))
 
   ;; needs to have the same signatures, names can differ
   ;; though
