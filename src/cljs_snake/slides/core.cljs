@@ -24,6 +24,7 @@
   [app-state & slides]
   ;; does a side effect on mounting
   (let [slide-count (inc (count slides))]
+    (println slide-count)
     (when-not (= (:slide-count @app-state) slide-count)
       (swap! app-state assoc :slide-count slide-count)))
 
