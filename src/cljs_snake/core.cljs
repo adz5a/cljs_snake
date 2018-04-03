@@ -1,8 +1,9 @@
 (ns cljs_snake.core
   (:require [reagent.core :as reagent :refer [atom]]
             [cljs.spec.alpha :as s]
-            [cljs_snake.slides :refer [viewer
-                                       slides]]))
+            [cljs_snake.slides.core :refer [viewer
+                                            slide]]
+            [cljs_snake.slides.components :refer [slides]]))
 
 (enable-console-print!)
 
@@ -56,7 +57,8 @@
                                                  (= "ArrowDown" k) (next-slide!)
                                                  (= "ArrowUp" k) (previous-slide!)))}
                            (apply vector viewer app-state
-                                   slides)
+                                   (map #(apply vector slide %)
+                                        slides))
                            [mode-indicator]
                               [pagination]]
                           (. js/document (getElementById "app")))
@@ -70,4 +72,8 @@
   ;; (swap! state update-in [:__figwheel_counter] inc)
 
   (println "reloaded")
+
+  ;; refresh slide counts
+  (swap! app-state assoc :slide-count (count slides))
+
   )
