@@ -1,12 +1,13 @@
 (ns cljs_snake.codemirror
-  (:require [codemirror.api :as cm]
-            ;; should use https://github.com/clojure/tools.reader
+  (:require ;; should use https://github.com/clojure/tools.reader
             ;; instead
             [cljs.reader :as reader]
             [cljs.js :as cljs :refer [eval empty-state]]
             ;; will read arbitrary code
             [cljs.tools.reader :refer [read-string]]
             [reagent.core :as r :refer [atom]]))
+
+(def cm js/CodeMirror)
 
 (def compiler-state (empty-state))
 
