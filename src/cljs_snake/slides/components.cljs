@@ -6,7 +6,14 @@
             [cljs.pprint :refer [pprint]]))
 
 ;; this uses metadata to declare privacy of the var
-(def ^{:private true} presentation [{:title "Clojure, Lisp, wat ?"}])
+(def ^{:private true} presentation [{:title "Clojure, Lisp"}
+                                    [:article 
+                                     [:ul {:className "lh-copy"}
+                                      [:li "Initial release: 2007-10-16, 1.9.0 (2017). 
+                                           Cljs 2011, today at feature parity (almost)"]
+                                     [:li "A list dialect"]
+                                     [:li "A language hosted: JVM & JS VMs"]
+                                     [:li "Dynamic functional language"]]]])
 
 (def syntax-literals [{:title "Syntax - Basics"}
              [:article
