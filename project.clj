@@ -37,6 +37,10 @@
                            :output-to "resources/public/js/compiled/cljs_snake.js"
                            :output-dir "resources/public/js/compiled/out"
                            :source-map-timestamp true
+                           :foreign-libs [{:file "resources/public/js/lib.js"
+                                           :file-min "resources/public/js/lib.js"
+                                           :global-exports {codemirror.public CodeMirror}
+                                           :provides ["codemirror.public"]}]
 
                            ;; To console.log CLJS data-structures make sure you enable devtools in Chrome
                            ;; https://github.com/binaryage/cljs-devtools
@@ -50,6 +54,10 @@
                            :output-to "resources/public/js/compiled/cljs_snake.js"
                            :output-dir "out"
                            :optimizations :advanced
+                           :foreign-libs [{:file "resources/public/js/lib.js"
+                                           :file-min "resources/public/js/lib.js"
+                                           :global-exports {codemirror.public CodeMirror}
+                                           :provides ["codemirror.public"]}]
                            :pretty-print false}}]}
 
   :figwheel {;; :http-server-root "public" ;; default and assumes "resources"
