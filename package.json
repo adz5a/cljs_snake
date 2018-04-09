@@ -20,5 +20,8 @@
   "dependencies": {
     "codemirror": "^5.36.0",
     "webpack": "^4.4.1"
+  },
+  "devDependencies": {
+    "@cljs-oss/module-deps": "^1.1.1"
   }
 }

@@ -1,5 +1,6 @@
 SESSION=snake
 
+build:clean src/js/lib.js copy-assets cljs
 
 workspace:
 	tmux new-session -s $(SESSION) -n main -d &&\
@@ -11,8 +12,14 @@ copy-assets:
 	cp node_modules/codemirror/lib/codemirror.css resources/public/css/
 	cp -r node_modules/codemirror/theme/ resources/public/css/
 
-repl: src/js/lib.js
+repl:src/js/lib.js
 	lein figwheel
 
 src/js/lib.js:
 	node webpack.build.js
+
+clean:
+	lein clean
+
+cljs:
+	lein cljsbuild once min

@@ -39,7 +39,7 @@
                            :source-map-timestamp true
                            :foreign-libs [{:file "resources/public/js/lib.js"
                                            :file-min "resources/public/js/lib.js"
-                                           :global-exports {codemirror.public CodeMirror}
+                                           :module-type :commonjs
                                            :provides ["codemirror.public"]}]
 
                            ;; To console.log CLJS data-structures make sure you enable devtools in Chrome
@@ -53,10 +53,10 @@
                 :compiler {:main cljs_snake.core
                            :output-to "resources/public/js/compiled/cljs_snake.js"
                            :output-dir "out"
-                           :optimizations :advanced
+                           :optimizations :simple
                            :foreign-libs [{:file "resources/public/js/lib.js"
                                            :file-min "resources/public/js/lib.js"
-                                           :global-exports {codemirror.public CodeMirror}
+                                           :module-type :commonjs
                                            :provides ["codemirror.public"]}]
                            :pretty-print false}}]}
 

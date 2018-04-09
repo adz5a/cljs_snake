@@ -13,7 +13,7 @@ const config = {
   output: {
     path: resolve(__dirname, "resources/public/js"),
     filename: "[name].js",
-    libraryTarget: "global",
+    libraryTarget: "commonjs2",
   },
   plugins: [
     new DefinePlugin({
