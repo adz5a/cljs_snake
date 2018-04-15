@@ -15,7 +15,7 @@ copy-assets:
 repl:src/js/lib.js
 	lein figwheel
 
-src/js/lib.js:
+cljsjs:
 	node webpack.build.js
 
 clean:

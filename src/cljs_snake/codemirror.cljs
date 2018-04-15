@@ -1,17 +1,13 @@
 (ns cljs_snake.codemirror
   (:require ;; should use https://github.com/clojure/tools.reader
             ;; instead
-            [codemirror.public]
+            [cljsjs.common :refer [CodeMirror]]
             [cljs.js :as cljs :refer [eval empty-state]]
             ;; will read arbitrary code
             [cljs.tools.reader :refer [read-string]]
             [reagent.core :as r :refer [atom]]))
 
 (def compiler-state (empty-state))
-
-(def CodeMirror codemirror.public/CodeMirror)
-
-(def yoolo "swag")
 
 (defn- create-instance [default-value on-change dom-node]
   (let [instance (CodeMirror dom-node 

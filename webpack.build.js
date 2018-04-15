@@ -8,10 +8,10 @@ const { NODE_ENV = "production" } = process.env;
 
 const config = {
   entry: {
-    lib: resolve(__dirname, "src/js/lib"),
+    common: resolve(__dirname, "src/js/common.js"),
   },
   output: {
-    path: resolve(__dirname, "resources/public/js"),
+    path: resolve(__dirname, "resources/compiled/js"),
     filename: "[name].js",
     libraryTarget: "commonjs2",
   },
