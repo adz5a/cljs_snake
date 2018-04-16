@@ -3,7 +3,8 @@
             [reagent.core :as r :refer [atom]]
             [cljs_snake.codemirror :refer [code-mirror
                                            code-mirror-input]]
-            [cljs.pprint :refer [pprint]]))
+            [cljs.pprint :refer [pprint]]
+            [cljs_snake.slides.special-forms :refer [syntax-special-forms]]))
 
 ;; this uses metadata to declare privacy of the var
 (def ^{:private true} presentation [{:title "Clojure, Lisp, wat ?"}])
@@ -41,40 +42,10 @@
                  [:li (join " " '(list el1 el2))]]]]]
              ])
 
-(def syntax-special-forms [{:title "Syntax - Special forms"}
-                           [:article
-                            [:h3 "Binding data to symbols"]
-                            [:ul {:className "lh-copy"}
-                             [:li {:className "w-60"}
-                              [:span "declaring a var"]
-                              [code-mirror-input (str '(def var-sym "value")) println]]
-                             [:li {:className "w-60"}
-                              [:span "declaring local vars"]
-                              [code-mirror-input (str '(let [local-var "value"
-                                                       other {:key val}])) println]]
-                             [:li {:className "w-60"}
-                              [:span "if loops"]
-                              [code-mirror-input (str '(if test-form
-                                                         then-form
-                                                         else-form)) println]]
-                             [:li {:className "w-60"}
-                              [:span "function declaration"]
-                              [code-mirror-input (str '(fn [arg] 
-                                                         body)) println]
-                              [code-mirror-input (str '(defn fn-sym-name [a & args]
-                                                         body))]]
-                             [:li {:className "w-60"}
-                              [:span ". dot special form (interop)"]
-                              [code-mirror-input (str '(.log js/console "hello")) println]]
-                             [:li {:className "w-60"}
-                              [:span "set! special form"]
-                              [code-mirror-input (str '(set! (.-innerHTML el) "hello")) println]]
-                             [:li {:className "w-60"}
-                              [:span "set! special form"]
-                              [code-mirror-input (str '(set! (.-innerHTML el) "hello")) println]]]]])
+
                              
 
-(def syntax-in-a-nutshell [{:title "Evaluation - In a nutshell"}
+(def syntax-in-a-nutshell [{:title "Evaluation"}
                            [:article  {:className "lh-copy"}
                             [:p
                              "Clojure programs are composed of expressions. 
@@ -93,8 +64,11 @@
                              The return value of the macro is then evaluated in its place."]
                             [:a {:href "https://clojure.org/reference/evaluation"} "Source"]]])
 
+
 (def macro-example [{:title "Macros"}
-                    [:article [:p "TODO"]]])
+                    [:article 
+                     [:p "TODO"]
+                     [:pre]]])
 
 (def try-it-out [{:title "Try it out"}
                     [:article [code-mirror (str '(+ 1 2)) ]]])
