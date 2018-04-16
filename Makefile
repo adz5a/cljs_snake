@@ -1,18 +1,12 @@
 SESSION=snake
 
-build:clean src/js/lib.js copy-assets cljs
-
-workspace:
-	tmux new-session -s $(SESSION) -n main -d &&\
-	tmux split-window &&\
-	tmux select-layout main-vertical &&\
-	tmux attach-session -t $(SESSION)
+build:before cljs
 
 copy-assets:
 	cp node_modules/codemirror/lib/codemirror.css resources/public/css/
 	cp -r node_modules/codemirror/theme/ resources/public/css/
 
-repl:src/js/lib.js
+repl:
 	lein figwheel
 
 cljsjs:
@@ -23,3 +17,13 @@ clean:
 
 cljs:
 	lein cljsbuild once min
+
+before:clean copy-assets cljsjs
+
+interactive:before repl
+
+workspace:
+	tmux new-session -s $(SESSION) -n main -d &&\
+		tmux split-window &&\
+		tmux select-layout main-vertical &&\
+		tmux attach-session -t $(SESSION)
