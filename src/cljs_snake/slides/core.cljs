@@ -15,7 +15,7 @@
     :or {title "no title"}}
    & content]
   (apply vector
-         :article {:className "pa3 pa5-ns vh-100 white"}
+         :article {:className "pa3 pa5-ns vh-100"}
          [:h1 {:className "f-headline-l"} title]
          content))
 
@@ -24,7 +24,7 @@
   [app-state & slides]
   ;; does a side effect on mounting
   (let [slide-count (inc (count slides))]
-    (println slide-count)
+    (println "there is " slide-count "slides")
     (when-not (= (:slide-count @app-state) slide-count)
       (swap! app-state assoc :slide-count slide-count)))
 

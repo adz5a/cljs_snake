@@ -48,7 +48,7 @@
   [:span {:className "fixed top-0 right-0"} (:mode @app-state)])
 
 
-(reagent/render-component [:div {:className "bg-black white vh-100 overflow-hidden"
+(reagent/render-component [:div {:className "bg-light-silver vh-100 overflow-hidden"
                                  :tabIndex "0"
                                  :onFocus #(swap! app-state assoc :mode "active")
                                  :onBlur #(swap! app-state assoc :mode "pending")
