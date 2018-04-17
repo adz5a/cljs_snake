@@ -37,9 +37,40 @@
 (def width 400)
 (def height 400)
 
+(defn pow [x n]
+  (.pow js/Math x n))
+
+;; perlin's polynom 6x5 -15x4 + 10x3
+(defn perlin-pol [x]
+  (* (+ 10
+        (* 6 (pow x 2))
+        (* -15 x)) 
+     (pow x 3)))
+
+(defn path! [points ctx]
+  {:pre [(seq? points)]}
+  (.beginPath ctx)
+  (let [current (first points)
+        points (rest points)]
+    (when-not (nil? current)
+      (.moveTo ctx (first current) (second current))
+      (loop [current (first points)
+             points (rest points)]
+
+        (if (nil? current)
+          ; if no new point, just stroke
+          (.stroke ctx)
+          
+          ; else draw line towards new point and recur
+          (do
+            (.lineTo ctx (first current) (second current))
+            (recur (first points)
+                   (rest points))))))))
+
 ;; to allow for fiddle in the repl
 (defonce !canvas (atom {:!ref nil
                         :ctx nil}))
+
 (defonce canvas-component 
   (r/create-class {:component-did-mount (fn []
                                           (println "mounting canvas")
