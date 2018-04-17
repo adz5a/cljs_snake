@@ -18,6 +18,7 @@
   },
   "homepage": "https://github.com/adz5a/cljs_snake#readme",
   "dependencies": {
+    "chalk": "^2.4.0",
     "codemirror": "^5.36.0",
     "webpack": "^4.4.1"
   },

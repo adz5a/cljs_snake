@@ -1,5 +1,6 @@
 "use strict";
 
+const chalk = require("chalk");
 const webpack = require("webpack");
 const { resolve } = require("path");
 const { DefinePlugin } = webpack;
@@ -33,5 +34,5 @@ const config = {
 
 webpack(config, (err) => {
   if (err) throw err;
-  console.log("done");
+  console.log(chalk.green("compiled js dependencies with success"));
 });

@@ -20,7 +20,7 @@ cljs:
 
 before:clean copy-assets cljsjs
 
-interactive:before repl
+start:before repl
 
 workspace:
 	tmux new-session -s $(SESSION) -n main -d &&\

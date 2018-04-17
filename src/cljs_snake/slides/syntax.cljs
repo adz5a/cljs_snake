@@ -1,6 +1,7 @@
-(ns cljs_snake.slides.special-forms)
-
+(ns cljs_snake.slides.special-forms
+  (:require [cljs_snake.codemirror :refer [code-mirror-input]]))
 (def if-example 
+
   "(if test-form
      then-form
      else-form)")
