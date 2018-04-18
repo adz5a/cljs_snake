@@ -37,6 +37,11 @@
                            :output-to "resources/public/js/compiled/cljs_snake.js"
                            :output-dir "resources/public/js/compiled/out"
                            :source-map-timestamp true
+                           :externs ["src/js/common-extern.js"]
+                           :foreign-libs [{:file "resources/compiled/js/common.js"
+                                           :module-type :commonjs
+                                           :provides ["cljsjs.common"]}]
+
                            ;; To console.log CLJS data-structures make sure you enable devtools in Chrome
                            ;; https://github.com/binaryage/cljs-devtools
                            :preloads [devtools.preload]}}
@@ -45,9 +50,15 @@
                ;; lein cljsbuild once min
                {:id "min"
                 :source-paths ["src"]
-                :compiler {:output-to "resources/public/js/compiled/cljs_snake.js"
-                           :main cljs_snake.core
-                           :optimizations :advanced
+                :compiler {:main cljs_snake.core
+                           :output-to "resources/public/js/compiled/cljs_snake.js"
+                           :output-dir "out"
+                           :optimizations :simple
+                           :externs ["src/js/common-extern.js"]
+                           :foreign-libs [{:file "resources/compiled/js/common.js"
+                                           :module-type :commonjs
+                                           :provides ["cljsjs.common"]}]
+
                            :pretty-print false}}]}
 
   :figwheel {;; :http-server-root "public" ;; default and assumes "resources"
@@ -99,7 +110,7 @@
                    ;; need to add dev source path here to get user.clj loaded
                    :source-paths ["src" "dev"]
                    ;; for CIDER
-                   ;; :plugins [[cider/cider-nrepl "0.12.0"]]
+                   :plugins [[cider/cider-nrepl "0.12.0"]]
                    :repl-options {:nrepl-middleware [cemerick.piggieback/wrap-cljs-repl]}
                    ;; need to add the compliled assets to the :clean-targets
                    :clean-targets ^{:protect false} ["resources/public/js/compiled"
